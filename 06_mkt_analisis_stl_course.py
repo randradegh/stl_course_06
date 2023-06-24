@@ -148,8 +148,9 @@ st.info("Poner atención a los valores máximo, medio y promedio.")
     - Convierte los datos a una forma sesgada.
     - Provoca un sesgo en la estimación de la precisión del modelo de aprendizaje automático.
     - Afecta la distribución y las estadísticas del conjunto de datos.
+    ___
+    **Detección de valores atípicos: enfoque IQR**
 
-    Detección de valores atípicos: enfoque IQR
     Los valores atípicos en el conjunto de datos se pueden detectar mediante 
     los siguientes métodos:
 
@@ -159,7 +160,7 @@ st.info("Poner atención a los valores máximo, medio y promedio.")
 
     Implementaremos el método IQR para detectar y tratar valores atípicos.
 
-    IQR es el acrónimo de Interquartile Range. Mide la dispersión estadística 
+    IQR es el acrónimo de *Interquartile Range*. Mide la dispersión estadística 
     de los valores de los datos como una medida de la distribución general.
 
     IQR es equivalente a la diferencia entre el primer cuartil (Q1) y el 
@@ -174,7 +175,7 @@ st.info("Poner atención a los valores máximo, medio y promedio.")
     Los diagramas de caja representan la distribución de los datos en términos 
     de cuartiles y consta de los siguientes componentes:
 
-    Observemos gráficamente que son lossiguientes conceptos:
+    Observemos gráficamente que son los siguientes conceptos:
     - Q1-25%
     - Q2-50%
     - Q3-75%
@@ -226,7 +227,7 @@ with st.echo(code_location='above'):
     BGCOLOR = "#0431B4"
     import plotly.graph_objects as go
 
-    df_mnt = df_mkt[['Income','MntWines','MntFruits','MntMeatProducts','MntFishProducts','MntSweetProducts','MntGoldProds']]
+    df_mnt = df_mkt[['MntWines','MntFruits','MntMeatProducts','MntFishProducts','MntSweetProducts','MntGoldProds']]
     fig_mnt = go.Figure()
     for col in df_mnt:
         fig_mnt.add_trace(go.Box(y=df_mnt[col].values, name=df_mnt[col].name))
@@ -296,14 +297,22 @@ with st.echo(code_location='bellow'):
 
 
 '''
-    ### Análisis del cliente promedio
-    Elegimos los _features_ que definan mejor al cliente y obtenemos su valor promedio.
+___
+### Análisis del cliente promedio
+
+Elegimos los _features_ que definan mejor al cliente y obtenemos su valor promedio.
 '''
 with st.echo(code_location='bellow'):
-    # Craemos lo dos df que vamos a utilizar, el primero para la narrativa
+    # Creamos lo dos dataframes que utilizaremos, el primero para la narrativa
     df_mean_client = df_mkt[['Year_Birth','Income','Kidhome','Teenhome','NumDealsPurchases','NumWebPurchases','NumCatalogPurchases','NumStorePurchases','NumWebVisitsMonth']].copy().mean()
+
+    """Media de Datos de Clientes"""
+    st.write(df_mean_client)
     # y el segundo para las cantidades
     df_mean_client_num = df_mkt[['NumDealsPurchases','NumWebPurchases','NumCatalogPurchases','NumStorePurchases','NumWebVisitsMonth']].copy().mean()
+
+    """Media de Datos de Comprasxzzzz"""
+    st.write(df_mean_client_num)
     
     df_mean_client_num = df_mean_client_num.to_frame()
     df_mean_client_num = df_mean_client_num.reset_index(drop=False)
@@ -339,10 +348,10 @@ with st.echo(code_location='bellow'):
 
     
     with colb:
-        color = '#b2babb'
+        color = '#1A5276'
         
         fig1 = px.bar(df_mean_client_num, y='Tipo', x='Cantidad', color='Tipo', orientation='h', 
-            template='gridon', 
+            #template='presentation', 
             title="Promedio de Compras y Visitas a la Web"
             )
         
@@ -398,13 +407,10 @@ with st.expander("Visualizar/Ocultar los dataframes de esta sección", expanded=
     '''
         **Suma de todos los productos**
     '''
-    #st.show(df_products_sum)
-
     st.write(df_products_sum)
     '''
         **Promedio de todos los productos**
     '''
-    #st.experimental_show(df_mean_prod)
     st.write(df_mean_prod)
 
 '''
@@ -477,16 +483,14 @@ st.write('**¿Qué gráfico es mejor para conocer la situación de los promedios
 fig_mean = go.Figure()
 
 col_k1, col_k2 = st.columns(2)
-col01, col02, col03, col04, col05 = st.columns(5)
+#col01, col02, col03, col04, col05 = st.columns(5)
 
 with st.container():
 
     with col_k1:
-        #st.success("From Col1")
-
-        color = 'white'
+        color = '#154360'
         fig_mean = px.bar(df_mean_prod, y='Tipo', x='Promedio', color='Tipo', orientation='h', 
-            template='gridon', 
+            #template='gridon', 
             title="Promedio de Artículos Vendidos"
             )
 
@@ -498,18 +502,16 @@ with st.container():
                 'font_color' : '#2C3E50',
                 'plot_bgcolor': color,
                 'paper_bgcolor': color,
-                'width': 500,
-                'height': 400
+                'width': 600,
+                #'height': 400
         })
-
-        fig_mean.update_yaxes(visible=False, showticklabels=False)
 
         # Mostramos el gráfico
         fig_mean
 
     with col_k2:
         #st.success("From Col1")
-        color = 'white'
+        color = '#154360'
         fig_mean = px.pie(df_mean_prod, names='Tipo', values='Promedio', color='Tipo', 
             template='gridon', 
             title="Promedio de Artículos Vendidos",
@@ -523,8 +525,8 @@ with st.container():
                 'font_color' : '#2C3E50',
                 'plot_bgcolor': color,
                 'paper_bgcolor': color,
-                'width': 500,
-                'height': 400,
+                'width': 600,
+                #'height': 400,
                 #'margin': dict(l=0, r=0, t=0, b=0),
         })
         
@@ -541,7 +543,7 @@ with st.container():
 '''
 
 '''
-    **Importancia de los _features_**
+    #### **Importancia de los _features_**
 
     La importancia de los _features_ radica en el conocimiento de qué campos tuvieron el mayor impacto en cada 
     predicción generada por clasificación o análisis de regresión. Cada valor de los _features_ tiene una 
@@ -591,9 +593,6 @@ fig_corr
     ### Regresión lineal o ¿el nivel de ingresos en un buen _feature_ para las compras por catálago?
 '''
 
-
-st.error('Dejar como último tema.')
-# Dejar al final
 ##
 # Nota sobre feature selection
 # Fuente: https://www.datacamp.com/community/tutorials/feature-selection-python
