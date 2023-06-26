@@ -30,9 +30,14 @@ st.markdown("""
     El objetivo de esta app es revisar la efectividad de algunas campañas de marketing usando varias técnicas.
 
     El _dataset_ de esta sesión contiene diversos _features_ de algunas campañas de 
-    marketing: datos del comprador, el monto de sus compras de artículos de varias 
-    categorías, datos sobre sus hijos, sobre la tienda en donde hizo la compra, 
-    país en donde reside, cantidad de visitas al sitio web, etc.
+    marketing: 
+    - datos del comprador, 
+    - el monto de sus compras de artículos de varias 
+    - categorías, datos sobre sus hijos, 
+    - sobre la tienda en donde hizo la compra, 
+    - país en donde reside, 
+    - cantidad de visitas al sitio web, 
+    - etc.
 
     Vamos a utilizar esa información para poder determinar que campañas de marketing fueron lás más exitosas.
 
